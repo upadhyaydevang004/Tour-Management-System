@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  description: MyText
+  image:
+  price: 1.5
+  booking_deadline: 2019-02-10
+  start_date: 2019-02-10
+  end_date: 2019-02-10
+  start_location: MyString
+  country: MyString
+  state: MyString
+  itinerary: MyText
+  agent_id: 2
+  seats: 1
+  status: MyString
+
+two:
+  id: 2
+  name: MyString
+  description: MyText
+  image:
+  price: 1.5
+  booking_deadline: 2019-02-10
+  start_date: 2019-02-10
+  end_date: 2019-02-10
+  country: MyString
+  state: MyString
+  start_location: MyString
+  itinerary: MyText
+  agent_id: 2
+  seats: 1
+  status: MyString

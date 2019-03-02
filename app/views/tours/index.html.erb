@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tours</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Booking deadline</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Start location</th>
+      <th>Itinerary</th>
+      <th>Contact agent</th>
+      <th>Seats</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tours.each do |tour| %>
+      <tr>
+        <td><%= tour.id %></td>
+        <td><%= tour.name %></td>
+        <td><%= tour.description %></td>
+        <td><%= tour.price %></td>
+        <td><%= tour.booking_deadline %></td>
+        <td><%= tour.start_date %></td>
+        <td><%= tour.end_date %></td>
+        <td><%= tour.start_location %></td>
+        <td><%= tour.itinerary %></td>
+        <td><%= tour.agent.name%></td>
+        <td><%= tour.seats %></td>
+        <td><%= tour.status %></td>
+<!--        <td><%#= session[:user_id] %></td>-->
+        <td><%= link_to 'Show', tour %></td>
+        <% unless session[:role] == 'Customer'%>  <!-- Only Logged in Realtor and Admin has access -->
+          <td> <%= link_to_if(session[:user_id] == tour.agent_id,  'Bookmarked Customer', "/bookmarks/potential_buyers/#{tour.id}"  ) %></td>
+          <%end %>
+        <% unless session[:role] == 'Customer'%>  <!-- Only Logged in Realtor and Admin has access -->
+          <td> <%= link_to_if(session[:user_id] == tour.agent_id,  'Booked Customer', bookings_path  ) %></td>
+        <%end %>
+        <%if session[:role] != 'Customer' %>
+          <td><%= link_to_if(tour.status != 'Completed' && (tour.agent_id == session[:user_id] && session[:role] == 'Agent') || session[:role] == 'Admin','Edit', edit_tour_path(tour))%></td>
+          <% if (tour.status != 'Completed' &&(tour.agent_id == session[:user_id] && session[:role] == 'Agent') || session[:role] == 'Admin') %>
+              <td><%= button_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+          <% if(tour.status == 'Completed' && (session[:role] == 'Admin' || current_user.id == tour.agent.id)) %>
+            <td><%=link_to 'View Reviews', reviews_path %></td>
+          <% end %>
+        <% end %>
+        <% if (session[:role] == 'Customer' || session[:role] == 'Admin') && tour.status == "In Future" %>
+          <td><%= link_to 'Bookmark', "/bookmarks/add/#{session[:user_id]}/#{tour.id}"%></td>
+          <td><%= link_to 'Book', "/bookings/new/#{tour.id}" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<!--only for agent and admin-->
+<% if (session[:role] == 'Admin' || session[:role] == 'Customer')   %>
+  <%= link_to 'Search Tours', new_search_path %>
+  <% if(session[:role] == 'Admin' || session[:role] == 'Agent') %>
+    <%= link_to 'New Tour', new_tour_path  %>
+    <%end %>
+<% end %>
+
+<a href="javascript:history.back()" class="btn btn-default">Back</a>

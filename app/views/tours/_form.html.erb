@@ -1,0 +1,97 @@
+<%= form_with(model: tour, local: true) do |form| %>
+  <% if tour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
+
+      <ul>
+      <% tour.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter Name"   %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description%>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :booking_deadline %>
+    <%= form.date_select :booking_deadline %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_location %>
+    <%= form.text_field :start_location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :itinerary %>
+    <%= form.text_area :itinerary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :countries %>
+    <%= form.text_area :country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :states %>
+    <%= form.text_area :state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seats %>
+    <%= form.number_field :seats %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, ['In Future', 'Completed', 'Cancelled']%>
+  </div>
+
+  <% if session[:role] == 'Admin' %>
+    <div class="field">
+      <%= form.label "Agent" %>
+      <%= select("tour", "agent_id", Agent.all.collect{ |c| [ c.name, c.id ]}, { include_blank: true }) %>
+  <% else %>
+    <%= form.label "Agent" %>
+    <%= form.select :agent_id, [[current_user.name,current_user.id]] %>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label "Upload Tour Images"%>
+    <%= form.file_field :image %>
+    <% if form.object.image? %>
+      <%#= image_tag form.object.image.url %>
+      <%= form.label :remove_image %>
+      <%= form.check_box :remove_image %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

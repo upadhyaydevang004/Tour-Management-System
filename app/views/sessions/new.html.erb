@@ -1,0 +1,24 @@
+<% provide(:title, "Log in") %>
+<h1>Log in</h1>
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="row center form">
+      <%= form_for(:session, url: login_path) do |f| %>
+        <%= flash[:message]%>
+        <%= flash[:notice] %>
+        <br>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+        <br>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+        <br>
+        <%= f.label "Role" %>
+        <%= f.select :role, ['Admin', 'Agent', 'Customer'], { include_blank: true }%><br><br>
+        <%= f.submit "Log in" %>
+      <% end %>
+
+      New user? <%= link_to "Sign up now!", signup_path %>
+    </div>
+  </div>
+</div>

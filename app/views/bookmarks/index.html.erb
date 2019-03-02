@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bookmarks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td scope = "row"> Customer Name </td>
+      <td scope = "row"> Customer Email </td>
+      <td scope = "row"> Tour Name </td>
+      <td scope = "row"> Agent Name </td>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @bookmarks.each do |bookmark| %>
+     <%if current_user.id == bookmark.customer_id %>
+      <tr>
+        <td scope="row"><%= bookmark.customer.name %></td>
+        <td scope="row"><%= bookmark.customer.email %></td>
+        <td scope="row"><%= bookmark.tour.name %></td>
+        <td scope="row"><%= bookmark.tour.agent.name %></td>
+        <td><%= button_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+   <%end %>
+
+
+      <tr>
+<!--        <td><%#= link_to 'Show', bookmark %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_bookmark_path(bookmark) %></td>-->
+
+<!--        Destroy Bookmark-->
+<!--        <td><%#= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      </tr>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Bookmark', new_bookmark_path %>
+<a href="javascript:history.back()" class="btn btn-default">Back</a>

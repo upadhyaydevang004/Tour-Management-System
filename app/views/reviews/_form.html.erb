@@ -1,0 +1,35 @@
+<%= form_with(model: review, local: true) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :Subject %>
+    <%= form.text_field :subject, placeholder: "Enter Subject"   %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :customer_id, :value => params[:customer_id] %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :tour_id, :value => params[:tour_id] %>
+  </div>
+
+  <div>
+    <%= form.label :Review %>
+    <%= form.text_area :reviews%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

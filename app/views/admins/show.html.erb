@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @admin.email %>
+</p>
+
+<%= link_to 'Edit Profile', edit_admin_path(@admin) %> |
+<%= link_to 'View all Customers', customers_path %> |
+<%= link_to 'View all Agents', agents_path %> |
+<%= link_to 'View all Tours', tours_path %> |
+<%= link_to 'New Agent', new_agent_path %> |
+<%= link_to 'New Customer', new_customer_path %> |
+<%#= link_to 'Back', admins_path %>

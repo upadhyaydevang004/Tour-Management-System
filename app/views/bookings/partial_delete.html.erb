@@ -1,0 +1,33 @@
+<% if logged_in? %>
+  <p id="notice"><%= notice %></p>
+
+  <h1>Delete Booking</h1>
+
+  <%= form_with(model: @booking, local: true) do |form| %>
+
+    <%= @booking.seats_booked %>
+    <div class="field">
+      <%= form.label :seats_booked%>
+      <%= form.text_field :seats_booked %>
+    </div>
+
+    <div class="field">
+      <%= form.hidden_field :tour_id, :value => @booking.tour.id %>
+      <%= form.hidden_field :customer_id, :value => @booking.customer.id %>
+      <%= form.hidden_field :preference, :value => @booking.preference %>
+      <%#= form.hidden_field :tour_id, :value =>  %>
+    </div>
+
+    <div class="actions">
+      <%#= form.submit 'Submit'%>
+      <%= link_to 'Modify Booking', "bookings/#{@booking.id}/#{form.seat_booked}" %>
+    </div>
+  <% end %>
+
+  <a href="javascript:history.back()" class="btn btn-default">Back</a>
+  <%# end %>
+<% else %>
+    <script type="text/javascript">
+        window.location.href="/login"  //Redirect to login for unlogged in users
+    </script>
+<% end %>

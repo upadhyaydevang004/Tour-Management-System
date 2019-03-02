@@ -1,0 +1,47 @@
+<%# if logged_in?%>
+  <%if session[:role] == 'Admin' %>
+    <p id="notice"><%= notice %></p>
+
+    <h1>Agents</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @agent.each do |agent| %>
+          <tr>
+            <td><%= agent.email %></td>
+            <td><%= agent.name %></td>
+            <td><%= link_to 'Edit', edit_agent_path(agent) %></td>
+            <td><%= button_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Agent', new_agent_path %>
+
+  <%# else %>
+    <%# if session[:role] == 'Agent' %>
+<!--      <script type="text/javascript">-->
+<!--          window.location.href="/agents/<%#= current_user.id %>"-->
+<!--      </script>-->
+    <%# else %>
+<!--      <script type="text/javascript">-->
+<!--          window.location.href="/customers/<%#= current_user.id %>"-->
+<!--      </script>-->
+    <%# end %>
+  <%# end %>
+<%# else %>
+<!--  <script type="text/javascript">-->
+<!--      window.location.href="/login"  //Redirect to login for unlogged in users-->
+<!--  </script>-->
+<% end %>

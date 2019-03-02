@@ -1,0 +1,52 @@
+<%= form_with(model: booking, local: true) do |form| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+      <% booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%#= form.label :Customer_ID%>
+    <%= form.hidden_field :customer_id, :value => current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :tour_id, :value => params[:tour_id] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seats %>
+    <%= form.number_field :seats_booked %>
+  </div>
+
+  <div>
+    <p>1. Book available seats (Only available seats will be booked and remaining seats would be dropped)</p>
+    <p>2. Book Available seats and add remaining to waitlist (Available seats will be booked and remaining seats would be added to waitlist)</p>
+    <p>3. Book only if all seats are available (If specified seats are not available all the seats would be added to waitlist)</p>
+  </div>
+  <div class="field">
+    <%= form.label :preference %>
+    <% if Tour.where(id: params[:tour_id]).pluck(:seats).first > 0%>
+    <%= form.select :preference, ['Book available seats', 'Book Available seats and add remaining to waitlist', 'Book only if all seats are available'], { include_blank: true }%>
+    <%else%>
+      <%= form.select :preference, ['Book Available seats and add remaining to waitlist', 'Book only if all seats are available'], { include_blank: true }%>
+    <%end%>
+  </div>
+
+  <div class="field">
+    <%= form.label :waitlist_count %>
+    <%= Booking.where(tour_id: params[:tour_id], status: 0).count %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

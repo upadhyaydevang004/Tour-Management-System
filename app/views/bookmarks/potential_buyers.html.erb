@@ -1,0 +1,43 @@
+<% if logged_in? %>
+  <%# if session[:role] == 'House Hunter'%>
+<!--    <script type="text/javascript">-->
+<!--        window.location.href="/house_hunters/<%#= current_user.id %>"  // put your correct path in a string here-->
+<!--    </script>-->
+  <%# else %>
+    <p id="notice"><%= notice %></p>
+
+    <h1>Bookmarked Customers</h1>
+
+    <div class="jumbotron">
+      <table class="table">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+<!--          <th scope="col">Phone</th>-->
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @bookmarks.each do |bookmark| %>
+          <tr>
+            <% if (bookmark.tour_id.to_i == params[:tour_id].to_i) %>
+            <td scope="row"><%= bookmark.customer.name %></td>
+            <td scope="row"><%= bookmark.customer.email %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+
+    <a href="javascript:history.back()" class="btn btn-default">Back</a>
+  <%# end %>
+<%# else %>
+<!--  <script type="text/javascript">-->
+<!--      window.location.href="/login"  //Redirect to login for unlogged in users-->
+<!--  </script>-->
+<% end %>

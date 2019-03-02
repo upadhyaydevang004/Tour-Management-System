@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @tour.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tour.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @tour.description %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= image_tag @tour.image_url.to_s %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @tour.price %>
+</p>
+
+<p>
+  <strong>Booking deadline:</strong>
+  <%= @tour.booking_deadline %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @tour.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @tour.end_date %>
+</p>
+
+<p>
+  <strong>Start location:</strong>
+  <%= @tour.start_location %>
+</p>
+
+<p>
+  <strong>Itinerary:</strong>
+  <%= @tour.itinerary %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @tour.country %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @tour.state %>
+</p>
+
+<p>
+  <strong>Contact agent:</strong>
+  <%= @tour.agent_id %>
+</p>
+
+<p>
+  <strong>Seats:</strong>
+  <%= @tour.seats %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @tour.status %>
+</p>
+
+
+<!--Check for agent and admin edit only-->
+<%# if session[:role] == 'Agent' || session[:role] == 'Admin'%>
+<!--  <%#= link_to 'Edit', edit_tour_path(@tour) %> |-->
+<%#end %>
+<%= link_to 'Back', tours_path %>
